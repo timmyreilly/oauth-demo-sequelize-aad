@@ -1,0 +1,86 @@
+extends layout
+
+block content
+  .container
+    h1.mt-2.mb-2.h3 Your account
+    .row
+      .col-md-2.text-right #[b Name:]
+      .col-md-10 #{user.displayName}
+      .col-md-2.text-right #[b Role:]
+      .col-md-10 #{user.roles}
+      .col-md-2.text-right #[b UserOID:]
+      .col-md-10 #{user.oid}
+    if forms
+      h2.mt-2.mb-2.h3 Your forms
+      table.table.table-striped.dTable
+        thead
+          tr
+            th(scope='col') Action
+            th(scope='col') Employee Name
+            th(scope='col') Fulfiller Name
+            th(scope='col') Employee Details 
+            th(scope='col') Fulfiller Details 
+            th(scope='col') Employee Closed
+            th(scope='col') Fulfiller Closed
+            th(scope='col') Updated
+        tbody
+          each form in forms
+            tr
+              td(scope='row') #[a(href='/request/'+ form.id +"/edit") Edit]
+              td(scope='row') #{form.employeeGivenName}
+              td(scope='row') #{form.fulfillerGivenName}
+              td(scope='row') #{form.employeeDescription}
+              td(scope='row') #{form.fulfillerDescription}
+              td(scope='row') #{form.requesterClosed}
+              td(scope='row') #{form.fulfillerClosed}
+              td(scope='row') #{form.updatedAt}
+
+      if allForms
+        h2.mt-2.mb-2.h3 All Faculty Requests
+        table.table.table-striped.dTable
+          thead
+            tr
+              th(scope='col') Action
+              th(scope='col') Employee Name
+              th(scope='col') Fulfiller Name
+              th(scope='col') Employee Details 
+              th(scope='col') Fulfiller Details 
+              th(scope='col') Employee Closed
+              th(scope='col') Fulfiller Closed
+              th(scope='col') Updated
+          tbody
+            each form in allForms
+              tr
+                td(scope='row') #[a(href='/claimRequest/' +form.id) Review]
+                td(scope='row') #{form.employeeGivenName}
+                td(scope='row') #{form.fulfillerGivenName}
+                td(scope='row') #{form.employeeDescription}
+                td(scope='row') #{form.fulfillerDescription}
+                td(scope='row') #{form.requesterClosed}
+                td(scope='row') #{form.fulfillerClosed}
+                td(scope='row') #{form.updatedAt}
+
+      if fulfillerAssignedForms
+        h2.mt-2.mb-2.h3 All Your Assigned Requests
+        table.table.table-striped.dTable
+          thead
+            tr
+              th(scope='col') Action
+              th(scope='col') Employee Name
+              th(scope='col') Fulfiller Name
+              th(scope='col') Employee Details 
+              th(scope='col') Fulfiller Details 
+              th(scope='col') Employee Closed
+              th(scope='col') Fulfiller Closed
+              th(scope='col') Updated
+          tbody
+            each form in fulfillerAssignedForms
+              tr
+                td(scope='row') #[a(href='/claimRequest/' +form.id) Review]
+                td(scope='row') #{form.employeeGivenName}
+                td(scope='row') #{form.fulfillerGivenName}
+                td(scope='row') #{form.employeeDescription}
+                td(scope='row') #{form.fulfillerDescription}
+                td(scope='row') #{form.requesterClosed}
+                td(scope='row') #{form.fulfillerClosed}
+                td(scope='row') #{form.updatedAt}

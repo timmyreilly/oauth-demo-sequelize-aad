@@ -1,0 +1,85 @@
+mixin requestForm(request = {}, user = {})
+  h1 request
+  #{h.dump(request)}
+  h1 user
+  #{h.dump(user)}  
+  body.bg-light
+    .container
+      .py-5.text-center
+        img.d-block.mx-auto.mb-4(src='../../images/faculty.png', alt='', width='100', height='100')
+        h2 Faculty Request
+        p.lead
+          | Please submit a clear Faculty Request
+      .row
+        .col-md-12.order-md-1
+        form.form(action=`/add/${request.id || ""}` method="POST" class="card")
+          form.needs-validation(novalidate='')
+            h4.mb-3 Tags 
+            h6.mb-3 (Select all that apply)
+            - const choices = ['Desk', 'Kitchen', 'Bathroom', 'Printer', 'Security', 'Other'] 
+            - const tags = request.tags || []
+            each choice in choices 
+                .custom-control.custom-checkbox 
+                  input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)) )
+                  label(for=choice)= choice
+                
+
+            hr.mb-4
+            .row
+              .col-md-12.mb-3
+                label(for='employeeDescription') Faculty Request Details
+                textarea#employeeDescription.form-control(placeholder='', value=request.employeeDescription, cols="25", rows="10" required='' name='employeeDescription')= request.employeeDescription 
+                .invalid-feedback
+                  | Valid Employee details are required. 
+              .col-md-4.mb-3
+                label(for='employeeGivenName') Employee Name
+                input#employeeGivenName.form-control(type='text', placeholder='', value=user.displayName, class='disableForCreator disableForViewer', required='' name='employeeGivenName')
+                .invalid-feedback
+                  | Valid first name is required.
+              .col-md-4.mb-3
+                label(for='employeeNumber') Employee Number
+                input(type="hidden" name='employeeNumber', value=user.oid)
+                input#employeeNumber.form-control(type='text', placeholder='', disabled="", value=user.oid, required='', class='disableForFulfiller disableForViewer', name='employeeNumber')
+                .invalid-feedback
+                  | Valid Employee Number is required.
+              .col-md-6.mb-3
+                .custom-control.custom-checkbox
+                    input#requesterClosed.custom-control-input(type='checkbox' class='disableForFulfiller disableForViewer', name='requesterClosed', checked=request.requesterClosed)
+                    label.custom-control-label(for='requesterClosed') Check this box if you are satisfied with Faculties solution.
+
+            hr.mb-4
+            h4.mb-3 Fulfiller Information
+            .row
+              .col-md-12.mb-3
+                label(for='fulfillerDescription') Description of Solution
+                textarea#fulfillerDescription.form-control( placeholder='', disabled="",  class='disableForCreator disableForViewer', cols="25", rows="10" name='fulfillerDescription')
+                  | #{request.fulfillerDescription}            
+              .col-md-6.mb-3
+                label(for='fulfillerNumber') Fulfiller ID 
+                input#fulfillerNumber.form-control(type='text', placeholder='', disabled="", class='disableForCreator disableForViewer', name='fulfillerNumber', value=request.fulfillerNumber)    
+              .col-md-4.mb-3
+                label(for='fulfillerGivenName') Fulfiller Name
+                input#fulfillerGivenName.form-control(type='text', placeholder='', disabled="", value=request.fulfillerGivenName, class='disableForCreator disableForViewer', required='' name='fulfillerGivenName')
+                .invalid-feedback
+                  | Valid first name is required.
+              .col-md-6.mb-3
+                .custom-control.custom-checkbox
+                    input#fulfillerClosed.custom-control-input(type='checkbox', disabled="", name='fulfillerClosed', checked=request.fulfillerClosed)
+                    label.custom-control-label(for='fulfillerClosed') Complete According to Facilities               
+
+            hr.mb-4
+            button.btn.btn-primary.btn-lg.btn-block(type='submit' value="Save <") Submit
+      footer.my-5.pt-5.text-muted.text-center.text-small
+        ul.list-inline
+          li.list-inline-item
+            a(href='#') Demo Ware
+
+    // Placed at the end of the document so the pages load faster
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous")
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous")
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.js" crossorigin="anonymous")
+    link(href='/stylesheets/form-validation.css', rel='stylesheet') 
