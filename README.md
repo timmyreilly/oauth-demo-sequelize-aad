@@ -65,8 +65,8 @@ References:
 https://github.com/AzureAD/passport-azure-ad 
 
 ### Team
-[Heba Elayoty](https://github.com/helayoty)
-[Sanjeev Dwivedi](https://github.com/sanjeevdwivedi)
+- [Heba Elayoty](https://github.com/helayoty)
+- [Sanjeev Dwivedi](https://github.com/sanjeevdwivedi)
 
 
 
